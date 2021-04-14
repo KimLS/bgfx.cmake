@@ -58,6 +58,8 @@ if(BGFX_CONFIG_DEBUG)
 	target_compile_definitions( bgfx PRIVATE BGFX_CONFIG_DEBUG=1)
 endif()
 
+target_compile_definitions(bgfx PRIVATE BGFX_CONFIG_MULTITHREADED=$<BOOL:${BGFX_CONFIG_MULTITHREADED}>)
+
 if( NOT ${BGFX_OPENGL_VERSION} STREQUAL "" )
 	target_compile_definitions( bgfx PRIVATE BGFX_CONFIG_RENDERER_OPENGL_MIN_VERSION=${BGFX_OPENGL_VERSION} )
 endif()
