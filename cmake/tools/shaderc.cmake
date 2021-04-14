@@ -17,10 +17,14 @@ include( cmake/3rdparty/spirv-cross.cmake )
 include( cmake/3rdparty/spirv-tools.cmake )
 include( cmake/3rdparty/webgpu.cmake )
 
-add_executable( shaderc ${BGFX_DIR}/tools/shaderc/shaderc.cpp ${BGFX_DIR}/tools/shaderc/shaderc.h ${BGFX_DIR}/tools/shaderc/shaderc_glsl.cpp ${BGFX_DIR}/tools/shaderc/shaderc_hlsl.cpp ${BGFX_DIR}/tools/shaderc/shaderc_pssl.cpp ${BGFX_DIR}/tools/shaderc/shaderc_spirv.cpp ${BGFX_DIR}/tools/shaderc/shaderc_metal.cpp )
+add_executable( shaderc ${BGFX_DIR}/src/shader_dx9bc.cpp ${BGFX_DIR}/src/shader_dxbc.cpp ${BGFX_DIR}/src/shader.cpp ${BGFX_DIR}/tools/shaderc/shaderc.cpp ${BGFX_DIR}/tools/shaderc/shaderc.h ${BGFX_DIR}/tools/shaderc/shaderc_glsl.cpp ${BGFX_DIR}/tools/shaderc/shaderc_hlsl.cpp ${BGFX_DIR}/tools/shaderc/shaderc_pssl.cpp ${BGFX_DIR}/tools/shaderc/shaderc_spirv.cpp ${BGFX_DIR}/tools/shaderc/shaderc_metal.cpp )
 target_compile_definitions( shaderc PRIVATE "-D_CRT_SECURE_NO_WARNINGS" )
 set_target_properties( shaderc PROPERTIES FOLDER "bgfx/tools" )
 target_link_libraries(shaderc PRIVATE bx bimg bgfx-vertexlayout bgfx-shader-spirv fcpp glsl-optimizer glslang spirv-cross spirv-tools webgpu)
+
+target_include_directories( shaderc PRIVATE
+	${BGFX_DIR}/include
+)
 
 if( BGFX_CUSTOM_TARGETS )
 	add_dependencies( tools shaderc )
